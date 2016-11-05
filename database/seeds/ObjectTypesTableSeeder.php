@@ -19,11 +19,11 @@ class ObjectTypesTableSeeder extends Seeder
         Type::create([
             'Type' => 'Mod',
             'Register' => 0,
-        ]):
+        ]);
 
         Type::create([
             'Type' => 'Plugin',
             'Register' => 0,
-        ]):
+        ]);
     }
 }

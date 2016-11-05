@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // マスアサインメントを無効化
+        Model::unguard();
+
+        // 各クラスを呼び出し
+        $this->call(ModsTableSeeder::class);
+        $this->call(PluginsTableSeeder::class);
+        $this->call(ObjectsTableSeeder::class);
+        $this->call(ObjectTypesTableSeeder::class);
+        $this->call(VersionsTableSeeder::class);
+
+        // マスアサインメントを有効化
+        Model::reguard();
     }
 }

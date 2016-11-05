@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Minecraft;
 
-class MinecraftSeeder extends Seeder
+class VersionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -19,7 +19,7 @@ class PluginsTableSeeder extends Seeder
         $faker = Faker\Factory::create('ja_JP');
 
         for($i = 0; $i < 100; $i++){
-            Mod::create([
+            Plugin::create([
                 'ObjectId' => $i,
                 'Version' => $faker->creditCardNumber,
                 'Data' => $faker->address,
