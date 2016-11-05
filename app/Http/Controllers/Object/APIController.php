@@ -26,7 +26,7 @@ class APIController extends Controller
             $Data = collect(['status' => 'Minecraft Version nav Index']);
             $Data->put('Minecraft Version', $Versions);
             // データを返す
-            return UnescapedResponse($Data);
+            return $this::UnescapedResponse($Data);
         }
     }
 
