@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Mod extends Model
+class Detail extends Model
 {
     // ソフトデリートを有効化し日付へキャスト
     use SoftDeletes;

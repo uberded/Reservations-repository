@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         // 各クラスを呼び出し
-        $this->call(ModsTableSeeder::class);
-        $this->call(PluginsTableSeeder::class);
+        $this->call(DetailsTableSeeder::class);
         $this->call(ObjectsTableSeeder::class);
         $this->call(ObjectTypesTableSeeder::class);
         $this->call(VersionsTableSeeder::class);
