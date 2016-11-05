@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Object;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Response;
+use App\Minecraft;
 
 class APIController extends Controller
 {
-    use App\Minecraft;
 
     /**
     * Minecraftバージョンリストを表示します
