@@ -27,6 +27,6 @@ class AddDescriptionToObjectsTable extends Migration
     {
         Schema::table('objects', function(Blueprint $table){
             $table->dropColumn('description');
-        }):
+        });
     }
 }
