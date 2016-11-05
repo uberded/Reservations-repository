@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Minecraft extends Model
 {
-
     // テーブル設定
     protected $table = 'versions';
 
