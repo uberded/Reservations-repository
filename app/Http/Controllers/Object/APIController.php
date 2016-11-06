@@ -70,7 +70,7 @@ class APIController extends Controller
     public function showObjectVersions($MinecraftVersion, $ObjectType, $ObjectName)
     {
         // 条件にあたる一件を検索
-        $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->first();
+        $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->get();
         // 値を返す
         return $this::showJSON($Object, $ObjectName, 'Version');
     }
@@ -90,7 +90,7 @@ class APIController extends Controller
             // オブジェクトIDからデータを検索
             $Detail = Detail::where('ObjectId', $Object->id)->where('Version', $ObjectVersion)->value('Data');
             // 値を返す
-            return $this::showJSON($Data, $ObjectName, 'Detail');
+            return $this::showJSON($Data, $ObjectName . ' ' . $ObjectVersion, 'Detail');
         }
     }
 
