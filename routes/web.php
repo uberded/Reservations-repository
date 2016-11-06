@@ -24,3 +24,7 @@ Route::get('/{MinecraftVersion}/{ObjectType}', 'Object\WebController@showObjects
 Route::get('/{MinecraftVersion}/{ObjectType}/{ObjectName}', 'Object\WebController@showObjectVersions');
 
 Route::get('/{MinecraftVersion}/{ObjectType}/{ObjectName}/{ObjectVersion}', 'Object\WebController@showObjectData');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
