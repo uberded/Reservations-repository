@@ -80,6 +80,7 @@
 
         @yield('content')
     </div>
+    <address>Copyright &copy; EX-T All rights reserved. "Minecraft" is a trademark of Mojang Synergies AB</address>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>

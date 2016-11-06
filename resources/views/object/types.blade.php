@@ -5,20 +5,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Minecraft Version</div>
+                <div class="panel-heading">Type on Minecraft {{ $MinecraftVersion}}</div>
 
-                {!! $Versions->render() !!}
+                {!! $Types->render() !!}
                 <table class="table table-hover panel-body">
                     <thead>
-                        <tr><th>Minecraft Version</th></tr>
+                        <tr><th>Object Type</th></tr>
                     </thead>
                     <tbody>
-                        @foreach($Versions as $version)
-                        <tr><td><a href="{{ url('/view/' . $version->Version) }}">{{ $version->Version }}</a></td></tr>
+                        @foreach($Types as $type)
+                        <tr><td><a href="{{ url('/view/' . $MinecraftVersion . '/' . $type->Type) }}">{{ $type->Type }}</a></td></tr>
                         @endforeach
                     </tbody>
                 </table>
-                {!! $Versions->render() !!}
+                {!! $Types->render() !!}
             </div>
         </div>
     </div>
