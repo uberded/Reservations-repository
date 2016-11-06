@@ -70,9 +70,13 @@ class APIController extends Controller
     public function showObjectVersions($MinecraftVersion, $ObjectType, $ObjectName)
     {
         // 条件にあたる全件を検索
-        $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->get();
+        $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->first();
+        // 一切ない場合のみ404
+        if($Object === null) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
+
+        $Versions = Detail::where('ObjectId', $Object->id)->value('Version');
         // 値を返す
-        return $this::showJSON($Object, $ObjectName, 'Version');
+        return $this::showJSON($Versions, $ObjectName, 'Version');
     }
 
     /**
@@ -87,12 +91,11 @@ class APIController extends Controller
         $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->first();
         // 一切ない場合のみ404
         if($Object === null) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
-        else{
-            // オブジェクトIDからデータを検索
-            $Detail = Detail::where('ObjectId', $Object->id)->where('Version', $ObjectVersion)->value('Data');
-            // 値を返す
-            return $this::showJSON($Data, $ObjectName . ' ' . $ObjectVersion, 'Detail');
-        }
+
+        // オブジェクトIDからデータを検索
+        $Detail = Detail::where('ObjectId', $Object->id)->where('Version', $ObjectVersion)->value('Data');
+        // 値を返す
+        return $this::showJSON($Detail, $ObjectName . ' ' . $ObjectVersion, 'Detail');
     }
 
     /**
@@ -101,10 +104,11 @@ class APIController extends Controller
     * @param Collection $Data, String $Type
     * @return Response::json
     */
-    private function showJSON($Data, $Type, $Id = $Type)
+    private function showJSON($Data, $Type, $Id = null)
     {
-        if($Data instanceof 'Illuminate\Database\Eloquent\Collection' && !$Data->isEmpty() || $Data instanceof 'Illuminate\Database\Eloquent\Collection' && $Data !== 'null'){
+        if($Data instanceof Illuminate\Database\Eloquent\Collection && !$Data->isEmpty() || !$Data instanceof Illuminate\Database\Eloquent\Collection && $Data !== 'null'){
             // 存在する
+            if($Id === null) $Id = $Type;
             return $this::putCollection($Data, $Type, $Id);
         }else // 存在しない
             return Response::json(array('status' => $Type .' has been unregistered.'), 404);
@@ -118,7 +122,7 @@ class APIController extends Controller
     */
     private function putCollection($Object, $Type, $Id)
     {
-        $Data = collect(['status' => $Type . ' Detail nav Index']);
+        $Data = collect(['status' => $Type . ' nav Index']);
         $Data->put($Id, $Object);
         return $this::UnescapedResponse($Data);
     }
