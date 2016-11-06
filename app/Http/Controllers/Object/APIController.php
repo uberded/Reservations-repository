@@ -43,15 +43,8 @@ class APIController extends Controller
     {
         // 全種類を取得
         $Types = Type::all();
-        // 一切ない場合のみ404
-        if($Types->isEmpty()) return Response::json(array('status' => 'Object Type has been unregistered.'), 404);
-        else{
-            // データの先頭にナビゲーションを挿入
-            $Data = collect(['status' => 'Object Type nav Index']);
-            $Data->put('Object Type', $Types);
-            // データを返す
-            return $this::UnescapedResponse($Data);
-        }
+        // 値を返す
+        return $this::showJSON($Types, 'Object Type');
     }
 
     /**
@@ -64,15 +57,8 @@ class APIController extends Controller
     {
         // 条件にあたる全件を取得
         $Objects = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->get();
-        // 一切ない場合のみ404
-        if($Objects->isEmpty()) return Response::json(array('status' => $ObjectType . ' has been unregistered.'), 404);
-        else{
-            // データの先頭にナビゲーションを挿入
-            $Data = collect(['status' => $ObjectType . ' nav Index']);
-            $Data->put($ObjectType, $Objects);
-            // データを返す
-            return $this::UnescapedResponse($Data);
-        }
+        // 値を返す
+        return $this::showJSON($Objects, $ObjectType);
     }
 
     /**
@@ -85,17 +71,8 @@ class APIController extends Controller
     {
         // 条件にあたる一件を検索
         $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->first();
-        // 一切ない場合のみ404
-        if($Object === null) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
-        else{
-            // オブジェクトIDからデータを検索
-            $Versions = Detail::where('ObjectId', $Object->id)->value('Version');
-            // データの先頭にナビゲーションを挿入
-            $Data = collect(['status' => $ObjectName . ' Version nav Index']);
-            $Data->put('Version', $Versions);
-            // データを返す
-            return $this::UnescapedResponse($Data);
-        }
+        // 値を返す
+        return $this::showJSON($Object, $ObjectName, 'Version');
     }
 
     /**
@@ -112,20 +89,41 @@ class APIController extends Controller
         else{
             // オブジェクトIDからデータを検索
             $Detail = Detail::where('ObjectId', $Object->id)->where('Version', $ObjectVersion)->value('Data');
-            if($Detail === null) return Response::json(array('status' => $ObjectName . ' ' . $ObjectVersion .' has been unregistered.'), 404);
-            else{
-                // データの先頭にナビゲーションを挿入
-                $Data = collect(['status' => $ObjectName . ' ' . $ObjectVersion . ' Detail nav Index']);
-                $Data->put('Detail', $Detail);
-                // データを返す
-                return $this::UnescapedResponse($Data);
-            }
+            // 値を返す
+            return $this::showJSON($Data, $ObjectName, 'Detail');
         }
+    }
+
+    /**
+    * 変数の中身を判定し存在しない場合は404を、そうでない場合はJSON形式の値を返します
+    * @param Collection $Data, String $Type
+    * @return Response::json
+    */
+    private function showJSON($Data, $Type, $Id = $Type)
+    {
+        if($Data instanceof 'Illuminate\Database\Eloquent\Collection' && !$Data->isEmpty() || $Data instanceof 'Illuminate\Database\Eloquent\Collection' && $Data !== 'null'){
+            // 存在する
+            return $this::putCollection($Data, $Type, $Id);
+        }else // 存在しない
+            return Response::json(array('status' => $Type .' has been unregistered.'), 404);
+    }
+
+    /**
+    * データの先頭にナビゲーションを挿入します
+    * @param Collection $Object, String $Type, String $Id
+    * @return Collection
+    */
+    private function putCollection($Object, $Type, $Id)
+    {
+        $Data = collect(['status' => $Type . ' Detail nav Index']);
+        $Data->put($Id, $Object);
+        return $this::UnescapedResponse($Data);
     }
 
     /**
     * スラッシュエスケープを除いたJSON形式の出力を行います
     *
+    * @param Collect $Data
     * @return Response::json
     */
     private function UnescapedResponse($Data)
