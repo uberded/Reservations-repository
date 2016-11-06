@@ -77,6 +77,7 @@ class APIController extends Controller
 
     /**
     * オブジェクトの詳細情報を表示します
+    *
     * @param Request $MinecraftVersion, Request $ObjectType, Request $ObjectName, Request $ObjectVersion
     * @return Response
     */
@@ -96,6 +97,7 @@ class APIController extends Controller
 
     /**
     * 変数の中身を判定し存在しない場合は404を、そうでない場合はJSON形式の値を返します
+    *
     * @param Collection $Data, String $Type
     * @return Response::json
     */
@@ -110,6 +112,7 @@ class APIController extends Controller
 
     /**
     * データの先頭にナビゲーションを挿入します
+    *
     * @param Collection $Object, String $Type, String $Id
     * @return Collection
     */
