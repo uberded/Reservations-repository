@@ -15,15 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('view/', 'Object\WebController@showMinecraftVersions');
+Route::get('/view', 'Object\WebController@showMinecraftVersions');
 
-Route::get('view/{MinecraftVersion}', 'Object\WebController@showObjectTypes');
+Route::get('/view/{MinecraftVersion}', 'Object\WebController@showObjectTypes');
 
-Route::get('view/{MinecraftVersion}/{ObjectType}', 'Object\WebController@showObjects');
+Route::get('/view/{MinecraftVersion}/{ObjectType}', 'Object\WebController@showObjects');
 
-Route::get('view/{MinecraftVersion}/{ObjectType}/{ObjectName}', 'Object\WebController@showObjectVersions');
+Route::get('/view/{MinecraftVersion}/{ObjectType}/{ObjectName}', 'Object\WebController@showObjectVersions');
 
-Route::get('view/{MinecraftVersion}/{ObjectType}/{ObjectName}/{ObjectVersion}', 'Object\WebController@showObjectData');
+Route::get('/view/{MinecraftVersion}/{ObjectType}/{ObjectName}/{ObjectVersion}', 'Object\WebController@showObjectData');
+
+Route::get('/search', 'Object\SearchController@showSearchResult');
 
 Auth::routes();
 
