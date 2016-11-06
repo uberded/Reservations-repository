@@ -69,7 +69,7 @@ class APIController extends Controller
     */
     public function showObjectVersions($MinecraftVersion, $ObjectType, $ObjectName)
     {
-        // 条件にあたる一件を検索
+        // 条件にあたる全件を検索
         $Object = Object::where('MinecraftVersion', $MinecraftVersion)->where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->get();
         // 値を返す
         return $this::showJSON($Object, $ObjectName, 'Version');
