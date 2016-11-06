@@ -62,8 +62,11 @@ class WebController extends Controller
     */
     public function showObjectVersions($MinecraftVersion, $ObjectType, $ObjectName)
     {
-        $Objects = Object::where('MinecraftVersion', $MinecraftVersion)-where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->paginate(config('pagination'));
-        if($Objects->isEmpty()) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
+        $Object = Object::where('MinecraftVersion', $MinecraftVersion)-where('ObjectType', $ObjectType)->where('ObjectName', $ObjectName)->first();
+        if($Object === null) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
+        
+        $Versions = Detail::where('ObjectId', $Object->id)->value('Version')->paginate(config('pagination'));
+        if($Versions->isEmpty()) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
         else{
             return view('object.objectversions', compact($Objects));
         }
