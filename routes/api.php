@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('', 'Object\APIController@showMinecraftVersions');
 
-Route::get('/{MinecraftVersion}', 'Object\APIController@showObjectType');
+Route::get('/{MinecraftVersion}', 'Object\APIController@showObjectTypes');
 
 Route::get('/{MinecraftVersion}/{ObjectType}', 'Object\APIController@showObjects');
 

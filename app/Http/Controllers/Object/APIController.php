@@ -39,7 +39,7 @@ class APIController extends Controller
     * @param Request $MinecraftVersion
     * @return Response
     */
-    public function showObjectType($MinecraftVersion)
+    public function showObjectTypes($MinecraftVersion)
     {
         // 全種類を取得
         $Types = Type::all();
