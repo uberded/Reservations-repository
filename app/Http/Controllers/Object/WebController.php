@@ -21,7 +21,7 @@ class WebController extends Controller
         $Versions = Minecraft::paginate(config('pagination'));
         if($Versions->isEmpty()) return Response::json(array('status' => 'Minecraft Version has been unregistered.'), 404);
         else{
-            return view('object.mcversions', compact($Versions));
+            return view('object.mcversions', compact('Versions'));
         }
     }
 
@@ -36,7 +36,7 @@ class WebController extends Controller
         $Types = Type::paginate(config('pagination'));
         if($Types->isEmpty()) return Response::json(array('status' => 'Object Type has been unregistered.'), 404);
         else{
-            return view('object.types', compact($Types));
+            return view('object.types', compact('Types'));
         }
     }
 
@@ -51,7 +51,7 @@ class WebController extends Controller
         $Objects = Object::where('MinecraftVersion', $MinecraftVersion)-where('ObjectType', $ObjectType)->paginate(config('pagination'));
         if($Objects->isEmpty()) return Response::json(array('status' => $ObjectType . ' has been unregistered.'), 404);
         else{
-            return view('object.objects', compact($Objects));
+            return view('object.objects', compact('Objects'));
         }
     }
 
@@ -68,7 +68,7 @@ class WebController extends Controller
         $Versions = Detail::where('ObjectId', $Object->id)->value('Version')->paginate(config('pagination'));
         if($Versions->isEmpty()) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
         else{
-            return view('object.objectversions', compact($Objects));
+            return view('object.objectversions', compact('Objects'));
         }
     }
 
@@ -84,7 +84,7 @@ class WebController extends Controller
         if($Object === null) return Response::json(array('status' => $ObjectName . ' has been unregistered.'), 404);
         else{
             $Detail = Detail::where('ObjectId', $Object->id)->where('Version', $ObjectVersion)->value('Data');
-            return view('object.detail', compact($Detail));
+            return view('object.detail', compact('Detail'));
         }
     }
 }
