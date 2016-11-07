@@ -14,12 +14,20 @@ class SearchController extends Controller
     * @param Request $q
     * @return Response
     */
-    public function showSearchResult($q = null)
+    public function showSearchResult(Request $req)
     {
-        if($q === null) return view('search');
+        $q = $req->input('q');
+        if($q === null) return redirect('search');
 
-        $q = mb_convert_kana($q, 's');
+        $Req =  preg_split('/[\s|\x{3000}]+/u', $q);
         // 検索する
-        $Result = Object::where('ObjectName', $q)->
+        $Result = Object::query();
+        foreach($Req as $Request){
+            $Result->where('ObjectName', 'like', '%' . $Request . '%');
+        }
+        $Result = $Result->paginate(15);
+
+        // 結果表示
+        return view('search.result', compact('Result', 'q'));
     }
 }
