@@ -14,6 +14,7 @@
                             <th>Minecraft Version</th>
                             <th>Object Type</th>
                             <th>Object Name</th>
+                            <th>Developer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,6 +23,7 @@
                             <td><a href="{{ url('/view/' . $result->MinecraftVersion) }}">{{ $result->MinecraftVersion }}</a></td>
                             <td><a href="{{ url('/view/' . $result->MinecraftVersion . '/' . $result->ObjectType) }}">{{ $result->ObjectType }}</a></td>
                             <td><a href="{{ url('/view/' . $result->MinecraftVersion . '/' . $result->ObjectType . '/' . $result->ObjectName) }}">{{ $result->ObjectName }}</a></td>
+                            <td><a href="#">{{ $result->Developer }}</a></td>
                         </tr>
                         @endforeach
                     </tbody>

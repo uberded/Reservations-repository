@@ -12,6 +12,7 @@
                     <thead>
                         <tr>
                             <th>{{ $ObjectType }} Name</th>
+                            <th>Developer</th>
                             <th>Description</th>
                         </tr>
                     </thead>
@@ -19,7 +20,8 @@
                         @foreach($Objects as $object)
                         <tr>
                             <td><a href="{{ url('/view/' . $MinecraftVersion . '/' . $ObjectType . '/' . $object->ObjectName) }}">{{ $object->ObjectName }}</a></td>
-                            <td>{{ $object->description }}</td>
+                            <td>{{ $object->Developer }}</td>
+                            <td>{{ $object->Description }}</td>
                         </tr>
                         @endforeach
                     </tbody>
