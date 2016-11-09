@@ -27,6 +27,6 @@ class AddDeveloperToObjectsTable extends Migration
     {
         Schema::table('objects', function(Blueprint $table){
             $table->dropColumn('Developer');
-        }):
+        });
     }
 }
