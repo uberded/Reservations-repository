@@ -25,7 +25,7 @@ Route::get('/view/{MinecraftVersion}/{ObjectType}/{ObjectName}', 'Object\WebCont
 
 Route::get('/view/{MinecraftVersion}/{ObjectType}/{ObjectName}/{ObjectVersion}', 'Object\WebController@showObjectData');
 
-Route::get('/search', 'Object\SearchController@showSearchResult');
+Route::get('/search', 'Object\SearchController@showSearch');
 
 Auth::routes();
 
