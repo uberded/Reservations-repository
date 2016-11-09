@@ -23,7 +23,8 @@ class ObjectsTableSeeder extends Seeder
                 'MinecraftVersion' => '1.7.10',
                 'ObjectType' => 'Mod',
                 'ObjectName' => $faker->name,
-                'description' => $faker->text,
+                'Description' => $faker->text,
+                'Developer' => $faker->name,
                 'Register' => $i,
             ]);
         }
