@@ -50,7 +50,7 @@
                     <ul class="navbar-nav">
                         <form class="form-inline" action="{{ url('/search') }}" method="GET">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="q" placeholder="検索ワード"  required>
+                                <input type="text" class="form-control" name="q" value="{{ old('q') }}" placeholder="検索ワード"  required>
                             </div>
                             <button type="submit" class="btn btn-success">
                                 Search
