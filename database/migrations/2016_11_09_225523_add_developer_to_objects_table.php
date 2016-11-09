@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDescriptionToObjectsTable extends Migration
+class AddDeveloperToObjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddDescriptionToObjectsTable extends Migration
     public function up()
     {
         Schema::table('objects', function(Blueprint $table){
-            $table->string('Description');
+            $table->string('Developer');
         });
     }
 
@@ -26,7 +26,7 @@ class AddDescriptionToObjectsTable extends Migration
     public function down()
     {
         Schema::table('objects', function(Blueprint $table){
-            $table->dropColumn('Description');
-        });
+            $table->dropColumn('Developer');
+        }):
     }
 }
