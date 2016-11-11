@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ObjectsTableSeeder::class);
         $this->call(ObjectTypesTableSeeder::class);
         $this->call(VersionsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(AdminsTableSeeder::class);
 
         // マスアサインメントを有効化
         Model::reguard();
